@@ -13,12 +13,12 @@ This assignment is focused on implementing a simple neuron network with all its 
 
 ## Methodology
 The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as:
-$σ(z) = \frac{1}{1+e−z}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \].
+$σ(z) = \frac{1}{1+e−z}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
 
 ### Network implementation
 For the forward propagation, for all layers, the corresponding outputs of the previous layers (or input for layer 1) are multiplied with the corresponding weights and then summed with the corresponding biases, using the following formula: $z_l = w_la_{l−1} + b_l$. After which, the results are passed through a sigmoid activation function for all layers except the last layer, where the results are passed through a softmax function. Furthermore, the results of each layer are saved for later calculations in back propagation.
 
-For the back propagation, the calculations start from the change of the final output layer and the loss function and iteratively go all to the change from the input layer. For the change between the output layer and cross-entropy loss function, delta is calculated as simply the difference between the output and the target values $(y_i − \hat{y}_i)$, the gradient for the biases is then simply the mean of delta along the rows $\frac{1}{n} \sum^n_{i=1} \delta[i,:]$, and the gradient for the weights is calculated as dot product between delta and the outputs of the previous layer, all divided by the batch size $\frac{1}{m} \delta \cdot (a_l−1)^T$. For the other layers, delta is calculated as the dot product of the weights in the next layers and previous delta, multiplied by the derivative of sigmoid for the output of the current layer. The gradients for biases and weights are calculated the same as before.
+For the back propagation, the calculations start from the change of the final output layer and the loss function and iteratively go all to the change from the input layer. For the change between the output layer and cross-entropy loss function, delta is calculated as simply the difference between the output and the target values $(y_i − \hat{y_i})$, the gradient for the biases is then simply the mean of delta along the rows $\frac{1}{n} \sum^n_{i=1} \delta \[i,:\]$, and the gradient for the weights is calculated as dot product between delta and the outputs of the previous layer, all divided by the batch size $\frac{1}{m} \delta \cdot (a_l−1)^T$. For the other layers, delta is calculated as the dot product of the weights in the next layers and previous delta, multiplied by the derivative of sigmoid for the output of the current layer. The gradients for biases and weights are calculated the same as before.
 
 For the network update, the weights and biases of each layer are calculated and updated by either SGD or Adam, later explained in subsection 2.3.
 
@@ -55,16 +55,16 @@ When training a neural network, its best to first start simple, by using one hid
 |------|-------------|------|-----|--------|----|-----|------|
 | SGD  | 64          | 0.1  | 32  | 30     | L2 | 0   |44.66%|
 | SGD  | 256         | 0.05 | 64  | 30     | L2 | 0   |47.79%|
-| SGD  | 256         | 0.05 | 64  | 30     | /  | 0   |<b>48.25%</b>|
+| SGD  | 256         | 0.05 | 64  | 30     | /  | 0   |\textbf{48.25%}|
 | SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0.1 |47.78%|
 | SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0   |44.92%|
-| SGD  | (128,128)   | 0.05 | 16  | 40     | L2 | 0.01|<b>49.51%</b>|
+| SGD  | (128,128)   | 0.05 | 16  | 40     | L2 | 0.01|\textbf{49.51%}|
 | SGD  | (256,128,64)| 0.01 | 64  | 30     | L2 | 0.01|33.37%|
 | Adam | 128         |0.001 | 64  | 30     | /  | 0   |46.77%|
 | Adam | 128         |0.001 | 64  | 30     | L2 | 0.01|47.04%|
 | Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|37,47%|
 | Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|39.61%|
-| Adam | (256,128)   | 2e-4 | 16  | 30     | L2 | 0.01|<b>51.95%</b>|
+| Adam | (256,128)   | 2e-4 | 16  | 30     | L2 | 0.01|\textbf{51.95%}|
 | Adam | (256,128)   | 2e-3 | 16  | 50     | L2 |0.001|37.87%|
 
 
