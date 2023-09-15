@@ -12,12 +12,12 @@ This assignment is focused on implementing a simple neuron network with all its 
 * * Exponential decay
 
 ## Methodology
-The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as: $\sigma (z) = \frac{1}{1+e^{−z}}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
+The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as: $\sigma (z) = \frac{1}{1+e^{−z}}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j\ ln\ a^L_j + (1 −y_j)\ ln\ (1 −a^L_j ) \]$.
 
 ### Network implementation
 For the forward propagation, for all layers, the corresponding outputs of the previous layers (or input for layer 1) are multiplied with the corresponding weights and then summed with the corresponding biases, using the following formula: $z_l = w_la_{l−1} + b_l$. After which, the results are passed through a sigmoid activation function for all layers except the last layer, where the results are passed through a softmax function. Furthermore, the results of each layer are saved for later calculations in back propagation.
 
-For the back propagation, the calculations start from the change of the final output layer and the loss function and iteratively go all to the change from the input layer. For the change between the output layer and cross-entropy loss function, delta is calculated as simply the difference between the output and the target values $(y_i − \hat{y_i})$, the gradient for the biases is then simply the mean of delta along the rows $\frac{1}{n} \sum^n_{i=1} \delta \[i,:\]$, and the gradient for the weights is calculated as dot product between delta and the outputs of the previous layer, all divided by the batch size $\frac{1}{m} \delta \cdot (a_l−1)^T$. For the other layers, delta is calculated as the dot product of the weights in the next layers and previous delta, multiplied by the derivative of sigmoid for the output of the current layer. The gradients for biases and weights are calculated the same as before.
+For the back propagation, the calculations start from the change of the final output layer and the loss function and iteratively go all to the change from the input layer. For the change between the output layer and cross-entropy loss function, delta is calculated as simply the difference between the output and the target values $(y_i − \hat{y_i})$, the gradient for the biases is then simply the mean of delta along the rows $\frac{1}{n} \sum^{n}_{i=1} \delta \[i,:\]$, and the gradient for the weights is calculated as dot product between delta and the outputs of the previous layer, all divided by the batch size $\frac{1}{m} \delta \cdot (a_l−1)^T$. For the other layers, delta is calculated as the dot product of the weights in the next layers and previous delta, multiplied by the derivative of sigmoid for the output of the current layer. The gradients for biases and weights are calculated the same as before.
 
 For the network update, the weights and biases of each layer are calculated and updated by either SGD or Adam, later explained in subsection 2.3.
 
@@ -31,7 +31,7 @@ $$ \sum \nabla = \beta_1 \sum \nabla + (1 - \beta_1) \nabla $$
 
 $$ \sum^2 \nabla = \beta_2 \sum^2 \nabla + (1 - \beta_2) \nabla^2 $$
 
-$$ \Delta = \frac{-\eta \sum \nabla}{\sqrt{\sum^2 \nabla} + \epsilon} $$
+$$ \Delta = \frac{-\eta \sum \nabla}{\sqrt{\sum^{2}_{} \nabla} + \epsilon} $$
 
 
 Where the decay rates, $\beta_1$ is usually 0.9 and $\beta_2$ is 0.999, $\eta$ is the learning rate, $\epsilon$ is a small constant to avoid division by zero, and the first and second formulas are the first and second moment estimates.
