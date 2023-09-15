@@ -13,7 +13,7 @@ This assignment is focused on implementing a simple neuron network with all its 
 
 ## Methodology
 The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as:
-$σ(z) = \frac{1}{1+e−z}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
+$σ(z) = \frac{1}{1+e−z}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
 
 ### Network implementation
 For the forward propagation, for all layers, the corresponding outputs of the previous layers (or input for layer 1) are multiplied with the corresponding weights and then summed with the corresponding biases, using the following formula: $z_l = w_la_{l−1} + b_l$. After which, the results are passed through a sigmoid activation function for all layers except the last layer, where the results are passed through a softmax function. Furthermore, the results of each layer are saved for later calculations in back propagation.
@@ -55,16 +55,16 @@ When training a neural network, its best to first start simple, by using one hid
 |------|-------------|------|-----|--------|----|-----|------|
 | SGD  | 64          | 0.1  | 32  | 30     | L2 | 0   |44.66%|
 | SGD  | 256         | 0.05 | 64  | 30     | L2 | 0   |47.79%|
-| SGD  | 256         | 0.05 | 64  | 30     | /  | 0   |\textbf{48.25%}|
+| SGD  | 256         | 0.05 | 64  | 30     | /  | 0   |**48.25%**|
 | SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0.1 |47.78%|
 | SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0   |44.92%|
-| SGD  | (128,128)   | 0.05 | 16  | 40     | L2 | 0.01|\textbf{49.51%}|
+| SGD  | (128,128)   | 0.05 | 16  | 40     | L2 | 0.01|**49.51%**|
 | SGD  | (256,128,64)| 0.01 | 64  | 30     | L2 | 0.01|33.37%|
 | Adam | 128         |0.001 | 64  | 30     | /  | 0   |46.77%|
 | Adam | 128         |0.001 | 64  | 30     | L2 | 0.01|47.04%|
 | Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|37,47%|
 | Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|39.61%|
-| Adam | (256,128)   | 2e-4 | 16  | 30     | L2 | 0.01|\textbf{51.95%}|
+| Adam | (256,128)   | 2e-4 | 16  | 30     | L2 | 0.01|**51.95%**|
 | Adam | (256,128)   | 2e-3 | 16  | 50     | L2 |0.001|37.87%|
 
 
