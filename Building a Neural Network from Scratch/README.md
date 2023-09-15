@@ -12,8 +12,7 @@ This assignment is focused on implementing a simple neuron network with all its 
 * * Exponential decay
 
 ## Methodology
-The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as:
-$σ(z) = \frac{1}{1+e−z}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
+The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as: $\sigma (z) = \frac{1}{1+e^{−z}}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j ln a^L_j + (1 −y_j) ln (1 −a^L_j ) \]$.
 
 ### Network implementation
 For the forward propagation, for all layers, the corresponding outputs of the previous layers (or input for layer 1) are multiplied with the corresponding weights and then summed with the corresponding biases, using the following formula: $z_l = w_la_{l−1} + b_l$. After which, the results are passed through a sigmoid activation function for all layers except the last layer, where the results are passed through a softmax function. Furthermore, the results of each layer are saved for later calculations in back propagation.
@@ -23,7 +22,7 @@ For the back propagation, the calculations start from the change of the final ou
 For the network update, the weights and biases of each layer are calculated and updated by either SGD or Adam, later explained in subsection 2.3.
 
 ### Regularization
-For the network, L2 regularization is implemented, simply by adding the regularization term $\frac{\lmbd}{2n} \sum_w w^2$ to the loss function, encouraging the model to have small weights, thus limiting the models complexity which makes it less likely to overfit.
+For the network, L2 regularization is implemented, simply by adding the regularization term $\frac{\lambda}{2n} \sum_w w^2$ to the loss function, encouraging the model to have small weights, thus limiting the models complexity which makes it less likely to overfit.
 
 ### Optimizer
 For the optimizer function, two approaches are explored, SGD and Adam. In SGD the weights and biases are updated by simply subtracting the current values from the multiplication between the learning rate and the gradients for the corresponding weights and biases. Where as for Adam, which is a popular optimization algorithm that combines the ides from RMSprop and momentum, the weights and biases are updated using the following formulas:
@@ -51,21 +50,21 @@ The implemented neural network is trained on a variety of parameters:
 
 When training a neural network, its best to first start simple, by using one hidden layer and slowly complicate it until it doesn’t make sense anymore. That is the approach used when training and testing this network for this assignment. Firstly, the network is evaluated when trained with just 1 hidden layer, no regularization and decay, tested on a variety of learning rate values, slowly complicating it by using several hidden layers, until the model becomes too complicated for the task and preforms poorly.
 
-| Opt  | NL          | LR   | BS  | Epochs | Reg| DR  | Acc  |
-|------|-------------|------|-----|--------|----|-----|------|
-| SGD  | 64          | 0.1  | 32  | 30     | L2 | 0   |44.66%|
-| SGD  | 256         | 0.05 | 64  | 30     | L2 | 0   |47.79%|
+| Opt  | NL          | LR   | BS  | Epochs | Reg| DR  | Acc      |
+|------|-------------|------|-----|--------|----|-----|----------|
+| SGD  | 64          | 0.1  | 32  | 30     | L2 | 0   | 44.66%   |
+| SGD  | 256         | 0.05 | 64  | 30     | L2 | 0   | 47.79%   |
 | SGD  | 256         | 0.05 | 64  | 30     | /  | 0   |**48.25%**|
-| SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0.1 |47.78%|
-| SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0   |44.92%|
+| SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0.1 | 47.78%   |
+| SGD  | (128,64)    | 0.05 | 128 | 30     | L2 | 0   | 44.92%   |
 | SGD  | (128,128)   | 0.05 | 16  | 40     | L2 | 0.01|**49.51%**|
-| SGD  | (256,128,64)| 0.01 | 64  | 30     | L2 | 0.01|33.37%|
-| Adam | 128         |0.001 | 64  | 30     | /  | 0   |46.77%|
-| Adam | 128         |0.001 | 64  | 30     | L2 | 0.01|47.04%|
-| Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|37,47%|
-| Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01|39.61%|
+| SGD  | (256,128,64)| 0.01 | 64  | 30     | L2 | 0.01| 33.37%   |
+| Adam | 128         |0.001 | 64  | 30     | /  | 0   | 46.77%   |
+| Adam | 128         |0.001 | 64  | 30     | L2 | 0.01| 47.04%   |
+| Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01| 37,47%   |
+| Adam | (128,64)    | 2e-5 | 128 | 30     | /  | 0.01| 39.61%   |
 | Adam | (256,128)   | 2e-4 | 16  | 30     | L2 | 0.01|**51.95%**|
-| Adam | (256,128)   | 2e-3 | 16  | 50     | L2 |0.001|37.87%|
+| Adam | (256,128)   | 2e-3 | 16  | 50     | L2 |0.001| 37.87%   |
 
 
 From the table above, we can see that by using 1-2 hidden layers, we get better results than by adding more hidden layers, further complicating it and slowing down training as well. For overall performance, on a more simple architecture, even on same parameters except learning rate, SGD outpreformed Adam. However, by using Adam with 2 hidden layers, (256, 128) and a low learning rate of 2e-4, with batch-size of 16 trained on 30 epochs using 0.01 decay rate and L2 regularization, we received highest accuracy of all other parameters, with 51 95%. Increasing the number of epochs to 50, even with L2 regularization, the model overfitted after epochs 30, where the validation loss started to increase and the accuracy started to decrease.
