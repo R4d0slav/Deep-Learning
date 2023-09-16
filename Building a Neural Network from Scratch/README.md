@@ -4,12 +4,12 @@
 This assignment is focused on implementing a simple neuron network with all its basic functionalities: forward propagation, backward propagation and network updating. Furthermore, several functions and approaches are explored, with different parameters, such as:
 
 * Optimization functions:
-* * Stocastig Gradient Descent (SGD)
-* * ADAptive Moment estimation (Adam)
+*    Stocastig Gradient Descent (SGD)
+*    ptive Moment estimation (Adam)
 * Regularization
-* * L2 regularization
+*   L2 regularization
 * Learning rate schedule
-* * Exponential decay
+*   Exponential decay
 
 ## Methodology
 The network architecture is made up of N hidden layers, all containing sigmoid activation function, defined as: $\sigma (z) = \frac{1}{1+e^{−z}}$. The network is used for classification of 10 classes, thus the final output layer contains softmax activation function, defined as: $a_L^j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}}$. Finally, cross-entropy is used as loss function, which is defined as: $C = −\frac{1}{n}\sum_{xj} \[ y_j\ ln\ a^L_j + (1 −y_j)\ ln\ (1 −a^L_j ) \]$.
