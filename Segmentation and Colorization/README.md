@@ -26,7 +26,7 @@ To get good accuracy, fine-tuning is performed, over different parameter values 
 | SGD       | 1e-2   |  32  |  10     |  89     |
 | SGD       | 1e-3   |  32  |  10     |  89     |
 | SGD       | 1e-3   |  16  |  15     |  90     |
-|:--:| 
+
 *Table 1: Results of fine-tuning ResNet18 with different parameter values and data augmentation techniques.*
 
 We can see that by using Adam optimizer with a low learning rate of 1e-4, batch size of 16 and 15 number of epochs yielded the best results. Furthermore, by performing data augmentation, on the training and validation data sets, the model performed worse every time. Several augmentation techniques were used such as: slight random rotation, Gaussian blurring, slight stretching. Because of the worse per formance, data augmentation is omitted from table 1. Also,when using SGD optimizer, because of the exploding gradients, the data was normalized prior to training.
