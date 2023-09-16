@@ -26,7 +26,6 @@ To get good accuracy, fine-tuning is performed, over different parameter values 
 | SGD       | 1e-2   |  32  |  10     |  89     |
 | SGD       | 1e-3   |  32  |  10     |  89     |
 | SGD       | 1e-3   |  16  |  15     |  90     |
-
 |:--:| 
 *Table 1: Results of fine-tuning ResNet18 with different parameter values and data augmentation techniques.*
 
